@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout/default">
+<head>
+<title>Thêm mới khóa học</title>
+</head>
+<body>
+	<div layout:fragment="content">
+		<div class="row">
+			<div class="col-md-12 mb-2">
+				<div class="page-header-breadcrumb">
+					<ul class="breadcrumb-title">
+						<li class="breadcrumb-item"><a th:href="@{/admin}"> <i
+								class="feather icon-home"></i> Trang chủ
+						</a></li>
+						<li class="breadcrumb-item"><a th:href="@{/admin/course}">Khóa học</a></li>
+						<li class="breadcrumb-item"><a href="#!">Thêm mới khóa học</a></li>
+					</ul>
+				</div>
+			</div>
+			<div class="col-sm-12">
+				<div class="card">
+					<div class="card-header">
+						<h2 class="text-uppercase text-center">Thêm mới khóa học</h2>
+					</div>
+					<div class="card-block">
+						<form action="#" method="post" th:object="${course}" th:action="@{/admin/course/add}">
+							<div class="row">
+								<div class="col-md-6">
+									<div class="form-group">
+										<label>Tiêu đề</label> 
+										<input type="text" th:field="*{title}" class="form-control" />
+										<p class="text-danger" 
+												th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></p>
+									</div>
+									<div class="form-group">
+										<label>Số bài học</label> 
+										<input type="number" th:field="*{leturesCount}" class="form-control" />
+										<p class="text-danger" 
+												th:if="${#fields.hasErrors('leturesCount')}" th:errors="*{leturesCount}"></p>
+									</div>
+									<div class="form-group">
+										<label>Số giờ học</label> 
+										<input type="number" th:field="*{hourCount}" class="form-control" />
+										<p class="text-danger" 
+												th:if="${#fields.hasErrors('hourCount')}" th:errors="*{hourCount}"></p>
+									</div>
+									<div class="form-group">
+										<label>Danh mục</label> 
+										
+										<select th:field="*{categoryId}" class="form-control">
+											
+											<option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.title}"></option>
+										</select>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group">
+										<label>Giá bán</label> 
+										<input type="number" th:field="*{price}" class="form-control" />
+										<p class="text-danger" 
+												th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></p>
+									</div>
+									<div class="form-group">
+										<label>Giảm giá (%)</label> 
+										<input type="number" th:field="*{discount}" class="form-control" />
+										<p class="text-danger" 
+												th:if="${#fields.hasErrors('discount')}" th:errors="*{discount}"></p>
+									</div>
+									<div class="form-group">
+										<label>Mô tả</label> 
+										<input type="text" th:field="*{description}" class="form-control" />
+										<p class="text-danger" 
+												th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></p>
+									</div>
+									<div class="form-group">
+										<label>Hình đại diện</label> 
+										<input type="text" th:field="*{image}" class="form-control" />
+										<p class="text-danger" 
+												th:if="${#fields.hasErrors('image')}" th:errors="*{image}"></p>
+									</div>
+								</div>
+								<div class="col-12">
+									<label>Nội dung</label>
+									<textarea name="content" class="form-control" rows="5"></textarea>
+								</div>
+								<div class="col-12 mt-3">
+									<div class="form-group">
+										<button type="submit" class="btn btn-primary m-b-0">
+											Lưu lại
+										</button>
+										<a th:href="@{/admin/course}"
+											class="btn btn-secondary text-white">Quay lại</a>
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

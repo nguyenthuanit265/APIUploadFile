@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout/default">
+
+<head>
+<title>Danh sách món ăn</title>
+</head>
+
+<body>
+	<div layout:fragment="content">
+		<div class="row">
+			<div class="col-md-12 mb-2">
+				<div class="page-header-breadcrumb">
+					<ul class="breadcrumb-title">
+						<li class="breadcrumb-item"><a th:href="@{/admin}"> <i
+								class="feather icon-home"></i> Trang chủ
+						</a></li>
+						<li class="breadcrumb-item"><a href="#!">Danh sách món ăn</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="col-sm-12">
+				<div class="card px-3">
+					<div class="card-header px-0 pb-2">
+						<h2 class="text-uppercase text-center">Danh sách món ăn</h2>
+						<a th:href="@{/admin/product/add}" class="btn btn-sm btn-primary">Thêm
+							mới</a>
+						 <a th:href="@{/admin/product/create-bill}"
+							class="btn btn-sm btn-info" id="createBill">Xem hóa đơn</a>
+					<!-- 	<button class="btn btn-sm btn-info" id="createBill">Xem
+							hóa đơn</button> -->
+					</div>
+
+					<section class="product container">
+
+
+						<div class="row">
+							<!--class row của bootstrap gồm : 12 cột-->
+							<div th:each="item : ${products}" class="col-md-3">
+								<input class="id-product" type="hidden" th:value="${item.id}" />
+
+								<div class="inforProduct">
+									<!-- <img alt="" th:src="@{/assets/image_product/1.jpg}"> -->
+									<img alt="" th:src="${ item.imageUrl }">
+									<p>
+										Tên món ăn: <span th:text="${ item.name }"></span>
+									</p>
+									<p>
+										Giá: <span th:text="${ item.price }"></span>
+									</p>
+									<p>
+										Trạng thái: <span th:text="${ item.status.name }"></span>
+									</p>
+									<p>
+										<!-- <a th:if="${item.status.id == 1}"
+											th:href="@{/admin/product/choose/{id}(id=${item.id})}"
+											class="btn btn-sm btn-success btn-round py-1 font-weight-bold btnChoose">
+											Chọn </a> -->
+										<button th:if="${item.status.id == 1}" th:value="${item.id}"
+											onclick='chooseFunction(this)'
+											class="btn btn-sm btn-success btn-round py-1 font-weight-bold btnChoose">
+											Chọn</button>
+
+
+										<a th:href="@{/admin/product/edit/{id}(id=${item.id})}"
+											class="btn btn-sm btn-info btn-round py-1 font-weight-bold">
+											Sửa </a> <a
+											th:href="@{/admin/product/delete/{id}(id=${item.id})}"
+											class="btn btn-sm btn-danger btn-round py-1 font-weight-bold">
+											Xóa </a>
+
+									</p>
+								</div>
+							</div>
+
+						</div>
+
+					</section>
+					<!-- <div class="card-block table-border-style">
+						<div class="table-responsive">
+							<table class="table table-striped table-bordered" id="dtBasicExample">
+								<thead>
+									<tr>
+										<th>STT</th>
+										<th>Tên món ăn</th>
+										<th>Số lượng</th>
+										<th>Giá</th>
+										<th>Ngày tạo</th>
+										<th>Trạng thái</th>
+										<th>Hành động</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:if="${products.empty}">
+										<td colspan="7">Danh sách rỗng!</td>
+									</tr>
+									<tr th:each="item : ${products}">
+										<td th:text="${ itemStat.index + 1 }"></td>
+										<td th:text="${ item.name }"></td>
+										<td th:text="${ item.quantity }"></td>
+										<td th:text="${ item.price }"></td>
+										<td th:text="${ item.dateProduct }"></td>
+										<td th:text="${ item.status.name }"></td>
+
+										<td>
+										<a  th:if="${item.status.id == 1}"
+											th:href="@{/admin/product/choose/{id}(id=${item.id})}"
+											class="btn btn-sm btn-success btn-round py-1 font-weight-bold">
+												Chọn </a>
+										<a
+											th:href="@{/admin/product/edit/{id}(id=${item.id})}"
+											class="btn btn-sm btn-info btn-round py-1 font-weight-bold">
+												Sửa </a> <a
+											th:href="@{/admin/product/delete/{id}(id=${item.id})}"
+											class="btn btn-sm btn-danger btn-round py-1 font-weight-bold">
+												Xóa </a></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div> -->
+				</div>
+			</div>
+		</div>
+	</div>
+
+</body>
+
+</html>

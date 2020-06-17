@@ -1,0 +1,253 @@
+<body xmlns:th="http://www.thymeleaf.org">
+	<script type="text/javascript"
+		th:src="@{/assets/plugins/jquery/js/jquery.min.js}"></script>
+	<script type="text/javascript"
+		th:src="@{/assets/plugins/jquery-ui/js/jquery-ui.min.js}"></script>
+	<script type="text/javascript"
+		th:src="@{/assets/plugins/popper.js/js/popper.min.js}"></script>
+	<script type="text/javascript"
+		th:src="@{/assets/plugins/bootstrap/js/bootstrap.min.js}"></script>
+	<!-- jquery slimscroll js -->
+	<script type="text/javascript"
+		th:src="@{/assets/plugins/jquery-slimscroll/js/jquery.slimscroll.js}"></script>
+	<!-- modernizr js -->
+	<script type="text/javascript"
+		th:src="@{/assets/plugins/modernizr/js/modernizr.js}"></script>
+	<script type="text/javascript"
+		th:src="@{/assets/plugins/modernizr/js/css-scrollbars.js}"></script>
+	<script th:src="@{/assets/js/pcoded.min.js}"></script>
+	<script th:src="@{/assets/js/vartical-layout.min.js}"></script>
+	<script th:src="@{/assets/js/jquery.mCustomScrollbar.concat.min.js}"></script>
+	<!-- Custom js -->
+	<script type="text/javascript" th:src="@{/assets/js/script.js}"></script>
+	<script src="http://cdn.ckeditor.com/4.11.4/full/ckeditor.js"></script>
+	<script
+		src="http://cdn.ckeditor.com/4.4.7/standard-all/adapters/jquery.js"></script>
+
+	<!-- <script src="https://code.jquery.com/jquery-3.3.1.js"></script> -->
+	<script
+		src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+	<script
+		src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+
+
+
+
+
+	<!-- Home js -->
+	<!--     <script th:src="@{/js/jquery.slim.min.js}"></script>
+	<script th:src="@{/js/popper.min.js}"></script>
+	<script th:src="@{/js/bootstrap.min.js}"></script> -->
+	<script th:src='@{/js/chart.min.js}'></script>
+	<script th:src='@{/js/custom-chart.js}'></script>
+
+
+
+
+
+	<script>
+		$(document).ready(function () {
+
+			// code to read selected table row cell data (values).
+			$("#dtBasicExample").on('click', '.btnSelect', function () {
+				// get the current row
+				var currentRow = $(this).closest("tr");
+
+				var col1 = currentRow.find("td:eq(1)").html(); // get current row 1st table cell TD value
+				var col2 = currentRow.find("td:eq(2)").html(); // get current row 2nd table cell TD value
+				var col3 = currentRow.find("td:eq(3)").html(); // get current row 3rd table cell  TD value
+				var data = col1 + "\n" + col2 + "\n" + col3;
+
+				alert(data);
+			});
+		});
+	</script>
+
+
+	<script>
+		$(document).ready(function () {
+			$('#dtBasicExample').DataTable();
+		});
+	</script>
+	<!-- <script>
+		function myFunction() {
+			var input, filter, table, tr, td, i, txtValue;
+			input = document.getElementById("myInput");
+			filter = input.value.toUpperCase();
+			table = document.getElementById("myTable");
+			tr = table.getElementsByTagName("tr");
+			for (i = 0; i < tr.length; i++) {
+				td = tr[i].getElementsByTagName("td")[1];
+				if (td) {
+					txtValue = td.textContent || td.innerText;
+					if (txtValue.toUpperCase().indexOf(filter) > -1) {
+						tr[i].style.display = "";
+					} else {
+						tr[i].style.display = "none";
+					}
+				}
+			}
+		}
+	</script> -->
+	<script>
+		var col_bill = $('#tableStatistic td:nth-child(3)').map(function () {
+			return $(this).text();
+		}).get();
+		var col_year = $('#tableStatistic td:nth-child(2)').map(function () {
+			return $(this).text();
+		}).get();
+
+		var col_price = $('#tableStatistic td:nth-child(4)').map(function () {
+			return $(this).text();
+		}).get();
+
+		console.log(col_bill);
+		console.log(col_year);
+		console.log(col_price);
+		var ctx = document.getElementById('myChart').getContext('2d');
+		var myChart = new Chart(ctx, {
+			type: 'bar',
+			data: {
+				// labels: ['2014', '2015', '2016', '2017', '2018', '2019'],
+				labels: col_year,
+				datasets: [{
+					label: '# số hóa đơn',
+					// data: [130, 190, 100, 150, 220, 330],
+					data: col_bill,
+					backgroundColor: ['rgba(255, 99, 132, 0.2)',
+						'rgba(54, 162, 235, 0.2)',
+						'rgba(255, 206, 86, 0.2)',
+						'rgba(75, 192, 192, 0.2)',
+						'rgba(153, 102, 255, 0.2)',
+						'rgba(255, 159, 64, 0.2)'],
+					borderColor: ['rgba(255, 99, 132, 1)',
+						'rgba(54, 162, 235, 1)', 'rgba(255, 206, 86, 1)',
+						'rgba(75, 192, 192, 1)', 'rgba(153, 102, 255, 1)',
+						'rgba(255, 159, 64, 1)'],
+					borderWidth: 1
+				}]
+			},
+			options: {
+				scales: {
+					yAxes: [{
+						ticks: {
+							beginAtZero: true
+						}
+					}]
+				}
+			}
+		});
+
+		var ctx2 = document.getElementById('myChart2').getContext('2d');
+		var myChart2 = new Chart(ctx2, {
+			type: 'line',
+			data: {
+				// labels: ['2014', '2015', '2016', '2017', '2018', '2019'],
+				labels: col_year,
+				datasets: [{
+					label: '# Doanh số',
+					// data: [1200, 1900, 1000, 1500, 2200, 3300],
+					data: col_price,
+					backgroundColor: ['rgba(255, 99, 132, 0.2)',
+						'rgba(54, 162, 235, 0.2)',
+						'rgba(255, 206, 86, 0.2)',
+						'rgba(75, 192, 192, 0.2)',
+						'rgba(153, 102, 255, 0.2)',
+						'rgba(255, 159, 64, 0.2)'],
+					borderColor: ['rgba(255, 99, 132, 1)',
+						'rgba(54, 162, 235, 1)', 'rgba(255, 206, 86, 1)',
+						'rgba(75, 192, 192, 1)', 'rgba(153, 102, 255, 1)',
+						'rgba(255, 159, 64, 1)'],
+					borderWidth: 1
+				}]
+			},
+			options: {
+				scales: {
+					yAxes: [{
+						ticks: {
+							beginAtZero: true
+						}
+					}]
+				}
+			}
+		});
+	</script>
+	<script>
+		function CashFunction() {
+			let totalMoney = Number(document.getElementById('totalMoney').value);
+			let moneyOfUser = Number(document.getElementById('moneyOfUser').value);
+			let excessCash = document.getElementById('excessCash');
+			excessCash.value = (moneyOfUser - totalMoney);
+
+		}
+	</script>
+
+	<script>
+		var col_price = $('#dtBasicExample td:nth-child(5)').map(function () {
+			return $(this).text();
+		}).get();
+		console.log(col_price);
+	</script>
+
+	<script>
+		// let idListProducts;
+		chooseFunction = (objButton) => {
+			/* idListProducts = new Array();
+			idListProducts.push(objButton.value);
+			idListProducts.forEach(element => {
+				console.log(element);
+			}); */
+
+			let id = objButton.value;
+			axios({
+				url: 'http://localhost:8080/admin/product/choose/' + id,
+				method: 'post',
+				
+			})
+				.then(function (response) {
+					// your action after success
+					console.log(response);
+				})
+				.catch(function (error) {
+					// your action on error success
+					console.log(error);
+				});
+		}
+
+		// $('#createBill').on('click', function () {
+
+		// 	axios({
+		// 		url: 'http://localhost:8080/admin/product/create-bill',
+		// 		method: 'post',
+		// 		params: [idListProducts
+		// 		]
+		// 	})
+		// 		.then(function (response) {
+		// 			// your action after success
+		// 			console.log(response);
+		// 		})
+		// 		.catch(function (error) {
+		// 			// your action on error success
+		// 			console.log(error);
+		// 		});
+		// })
+
+	</script>
+
+	<script>
+	$.get("/oauth/user", function(data) {
+		console.log(data);
+		$("#user").html(data.userAuthentication.details.name);
+		$(".unauthenticated").hide();
+		$(".authenticated").show();
+	});
+/* 	
+	$.get("/admin/infor-user", (data)=>{
+		console.log(data)
+	}); */
+	
+	</script>
+
+</body>

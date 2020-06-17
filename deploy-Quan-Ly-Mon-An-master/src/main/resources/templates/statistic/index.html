@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout/default">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Thống kê</title>
+
+</head>
+
+<body>
+	<div layout:fragment="content">
+		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+			Open chart
+		</button>
+		<div class="row">
+
+			<div class="col-sm-12">
+				<div class="card px-3">
+
+					<div class="card-block table-border-style">
+						<div class="table-responsive">
+
+
+							<table class="table table-striped table-bordered" id="tableStatistic">
+								<thead>
+									<tr>
+										<th>STT</th>
+										<th>Năm</th>
+										<th>Số hóa đơn</th>
+										<th>Doanh thu các năm</th>
+
+
+									</tr>
+								</thead>
+								<tbody>
+
+									<tr th:each="item : ${bills}">
+										<td th:text="${ itemStat.index + 1 }"></td>
+										<td th:text="${ item.year }"></td>
+										<td th:text="${ item.totalBill }"></td>
+										<td th:text="${ item.formatTotalPrice }">đ</td>
+										<!-- <td>
+										<a 
+												th:href="@{/admin/statistic/detail/{year}(year=${item.year })}" 
+												class="btn btn-sm btn-success btn-round py-1 font-weight-bold">
+												Xem chi tiết </a>
+										
+										</td> -->
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- The Modal -->
+		<div class="modal fade" id="myModal">
+			<div class="modal-dialog modal-xl">
+				<div class="modal-content">
+
+					<!-- Modal Header -->
+					<div class="modal-header">
+						<h4 class="modal-title">Modal Heading</h4>
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+					</div>
+
+					<!-- Modal body -->
+					<div class="modal-body">
+						<section id="admin-content" class="p-3">
+							<div class="row">
+								<div class="col-md-6">
+									<canvas id="myChart" width="400" height="400"></canvas>
+								</div>
+								<div class="col-md-6">
+									<canvas id="myChart2" width="400" height="400"></canvas>
+								</div>
+								<div class="col-md-1"></div>
+							</div>
+						</section>
+					</div>
+
+					<!-- Modal footer -->
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+
+
+
+</body>
+
+</html>

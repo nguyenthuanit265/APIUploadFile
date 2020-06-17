@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout/default">
+<head>
+<title>Bill</title>
+</head>
+<body>
+	<div layout:fragment="content">
+		<div class="row">
+			<div class="col-md-12 mb-2">
+				<div class="page-header-breadcrumb">
+					<ul class="breadcrumb-title">
+						<li class="breadcrumb-item"><a th:href="@{/admin}"> <i
+								class="feather icon-home"></i> Trang chủ
+						</a></li>
+						<li class="breadcrumb-item"><a href="#!">Bill</a></li>
+					</ul>
+				</div>
+			</div>
+			<div class="col-sm-12">
+				<div class="card px-3">
+					<div class="card-header px-0 pb-2">
+						<h2 class="text-uppercase text-center">Bill</h2>
+
+					</div>
+					<div class="card-block table-border-style">
+						<div class="table-responsive">
+						<form action="#" th:action="@{/admin/product/submit-create-bill}" method="post">
+							<table class="table table-bordered" id="myTable">
+								<thead>
+									<tr>
+										<th>STT</th>
+										<th>Tên món ăn</th>
+										<th>Số lượng</th>
+										<th>Giá</th>
+										<th>Ngày tạo</th>
+										<th>Hành động</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:if="${listProduct.empty}">
+										<td colspan="7">Danh sách rỗng!</td>
+									</tr>
+									<tr th:each="item : ${listProduct}">
+										<td th:text="${ itemStat.index + 1 }"></td>
+										<td th:text="${ item.name }"></td>
+										<td th:text="${ item.quantity }"></td>
+										<td th:text="${ item.price }"></td>
+										<td th:text="${ item.dateProduct }"></td>
+
+										<td>
+										
+										<a
+											th:href="@{/admin/product/create-bill/delete/{stt}(stt=${itemStat.index})}"
+											class="btn btn-sm btn-danger btn-round py-1 font-weight-bold">
+												Xóa </a>
+										
+										</td>
+
+									</tr>
+								</tbody>
+							</table>
+									<div class="form-group">
+										<label>Tổng tiền: </label> 
+										<input id="totalMoney" type="text" readonly th:value="${totalPrice}" class="form-control" />
+									
+										
+									</div>
+									<div class="form-group">
+										<label>Tiền khách đưa: </label> 
+										<input onchange="CashFunction()" type="number" id="moneyOfUser" class="form-control" />
+									
+										
+									</div>
+									<div class="form-group">
+										<label>Tiền thối: </label> 
+										<input type="text" readonly id="excessCash" class="form-control" />
+									
+										
+									</div>
+								
+									<div class="form-group">
+										<label>Khách hàng</label> 
+										<select id="userId" class="form-control" name="userId">
+
+											<option th:each="user : ${users}" th:value="${user.id}"
+												th:text="${user.name}"></option>
+											
+										</select>
+									
+										
+									</div>
+									
+							<div class="form-group mt-3">
+								<button type="submit" class="btn btn-primary m-b-0">Tạo hóa đơn</button>
+								<!-- <a th:href="@{/admin/product/submit-create-bill}" class="btn btn-success text-white">Tạo
+						
+									hóa đơn</a>  -->
+									<a th:href="@{/admin/product}"
+									class="btn btn-info text-white">Quay lại</a>
+							</div>
+							
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+</body>
+</html>

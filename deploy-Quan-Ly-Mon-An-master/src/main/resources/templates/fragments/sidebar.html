@@ -1,0 +1,78 @@
+<nav class="pcoded-navbar" xmlns:th="http://www.thymeleaf.org" th:fragment="sidebar">
+	<div class="pcoded-inner-navbar main-menu">
+		<ul class="pcoded-item pcoded-left-item">
+			<li class="">
+				<a th:href="@{/admin/home}"> 
+					<span class="pcoded-micon">
+						<i class="feather icon-home"></i>
+					</span> 
+					<span class="pcoded-mtext">Dashboard</span>
+				</a>
+			</li>
+			<li class="">
+				<a th:href="@{/admin/bill}"> 
+					<span class="pcoded-micon">
+						<i class="feather icon-layers"></i>
+					</span> 
+					<span class="pcoded-mtext">Hóa đơn</span>
+				</a>
+			</li>
+			<li class="">
+				<a th:href="@{/admin/detail}"> 
+					<span class="pcoded-micon">
+						<i class="feather icon-layers"></i>
+					</span>
+					<span class="pcoded-mtext">Chi tiết hóa đơn</span>
+				</a>
+			</li>
+			<li class="">
+				<a th:href="@{/admin/employee}"> 
+					<span class="pcoded-micon">
+						<i class="feather icon-layers"></i>
+					</span> 
+					<span class="pcoded-mtext">Nhân viên</span>
+				</a>
+			</li>
+			<li class="">
+				<a th:href="@{/admin/user}"> 
+					<span class="pcoded-micon">
+						<i class="feather icon-layers"></i>
+					</span> 
+					<span class="pcoded-mtext">Khách hàng</span>
+				</a>
+			</li>
+			<li class="">
+				<a th:href="@{/admin/product}"> 
+					<span class="pcoded-micon">
+						<i class="feather icon-user"></i>
+					</span> 
+					<span class="pcoded-mtext">Món ăn</span>
+				</a>
+			</li>
+			<li class="">
+				<a th:href="@{/admin/role}"> 
+					<span class="pcoded-micon">
+						<i class="feather icon-user"></i>
+					</span> 
+					<span class="pcoded-mtext">Quyền</span>
+				</a>
+			</li>
+			<li class="">
+				<a th:href="@{/admin/status}"> 
+					<span class="pcoded-micon">
+						<i class="feather icon-user"></i>
+					</span> 
+					<span class="pcoded-mtext">Trạng thái</span>
+				</a>
+			</li>
+			<li class="">
+				<a th:href="@{/admin/statistic}"> 
+					<span class="pcoded-micon">
+						<i class="feather icon-user"></i>
+					</span> 
+					<span class="pcoded-mtext">Thống kê</span>
+				</a>
+			</li>
+		</ul>
+	</div>
+</nav>

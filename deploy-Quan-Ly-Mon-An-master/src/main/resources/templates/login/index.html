@@ -1,0 +1,95 @@
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<title>Đăng nhập</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+	<div class="container">
+		<div class="row mt-5">
+			<div class="col-md-4 m-auto border p-3">
+				<h3 class="text-center">Đăng nhập</h3>
+				<p class="text-center" th:text=${error}></p>
+				<form th:action="@{/admin/login}" method="POST"
+					th:object="${loginUserDto}">
+					<div class="form-group">
+						<label for="email">Email:</label> <input type="email"
+							class="form-control" name="email" th:field="*{email}">
+					</div>
+					<div class="form-group">
+						<label for="pwd">Password:</label> <input type="password"
+							th:field="*{password}" class="form-control" name="password">
+					</div>
+					<button type="submit" class="btn btn-primary">Đăng nhập</button>
+				</form>
+				
+				<div class="container unauthenticated">
+					Login With Facebook: <a class="btn btn-sm btn-info btn-round py-1 font-weight-bold" th:href="@{/login}">Login</a>
+				</div>
+				
+				<div class="authenticated" style="display: none">
+					Logged in as: <span id="user"></span>
+					<div>
+						<!-- <button onClick="logout()" class="btn">Logout</button> -->
+						<a th:href="@{/oauth/logout}"
+							class="btn btn-sm btn-info btn-round py-1 font-weight-bold">Logout</a>
+
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- <div class="container">
+		<h2>OAuth2 Facebook Login demo application</h2>
+		<div>First Login into the Facebook account, and try this login</div>
+
+		<div class="unauthenticated">
+			<a class="btn" th:href="@{/login}">Login</a>
+		</div>
+
+		<div class="authenticated" style="display: none">
+			Logged in as: <span id="user"></span>
+			<div>
+				<button onClick="logout()" class="btn">Logout</button>
+				<a th:href="@{/oauth/logout}"
+					class="btn btn-sm btn-info btn-round py-1 font-weight-bold">Logout</a>
+
+
+			</div>
+		</div>
+	</div> -->
+	<script>
+		if (window.location.hash == '#_=_') {
+			history.replaceState ? history.replaceState(null, null,
+					window.location.href.split('#')[0])
+					: window.location.hash = '';
+		}
+
+		$.get("/oauth/user", function(data) {
+			$("#user").html(data.userAuthentication.details.name);
+			$(".unauthenticated").hide();
+			$(".authenticated").show();
+		});
+
+		var logout = function() {
+			$.get("/oauth/logout", function() {
+				$("#user").html('');
+				$(".unauthenticated").show();
+				$(".authenticated").hide();
+			});
+			return true;
+		}
+	</script>
+</body>
+</html>

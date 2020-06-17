@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout/default">
+<head>
+<title>Danh sách thành viên</title>
+</head>
+<body>
+	<div layout:fragment="content">
+		<div class="row">
+			<div class="col-md-12 mb-2">
+				<div class="page-header-breadcrumb">
+					<ul class="breadcrumb-title">
+						<li class="breadcrumb-item"><a th:href="@{/admin}"> <i
+								class="feather icon-home"></i> Trang chủ
+						</a></li>
+						<li class="breadcrumb-item"><a href="#!">Danh sách nhân viên</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="col-sm-12">
+				<div class="card px-3">
+					<div class="card-header px-0 pb-2">
+						<h2 class="text-uppercase text-center">Danh sách nhân viên</h2>
+						<a th:href="@{/admin/employee/add}" class="btn btn-sm btn-primary">Thêm
+							mới</a>
+						<a th:href="@{/admin/employee/is-delete}" class="btn btn-sm btn-primary">Nhân viên đã xóa</a>
+					</div>
+					<div class="card-block table-border-style">
+						<div class="table-responsive">
+							<table class="table table-striped table-bordered" id="dtBasicExample">
+								<thead>
+									<tr>
+										<th>STT</th>
+										<th>Họ Tên</th>
+										<th>Email</th>
+										<th>Số ĐT</th>
+										<th>Quyền</th>
+										<th>#</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="item : ${employees}">
+										<th th:text="${ itemStat.index + 1 }">1</th>
+										<td th:text="${ item.name }">Nguyễn Văn Tèo</td>
+										<td th:text="${ item.email }">teonguyen@gmail.com</td>
+										<td th:text="${ item.phone }">01234567899</td>
+										<td th:text="${ item.role.description }">RoleName</td>
+										<td>
+											<a th:href="@{/admin/employee/edit/{id}(id=${item.id})}" 
+												class="btn btn-sm btn-info btn-round py-1 font-weight-bold">Sửa</a>
+											<a th:href="@{/admin/employee/delete/{id}(id=${item.id})}" 
+												class="btn btn-sm btn-danger btn-round py-1 font-weight-bold">Xóa</a>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
